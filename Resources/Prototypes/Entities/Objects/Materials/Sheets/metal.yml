@@ -8,7 +8,7 @@
     sprite: Objects/Materials/Sheets/metal.rsi
   - type: Item
     sprite: Objects/Materials/Sheets/metal.rsi
-    size: Normal
+    size: Small
   - type: StaticPrice
     price: 0
   - type: Tag
@@ -47,6 +47,7 @@
       Steel: 100
   - type: Stack
     stackType: Steel
+    count: 10
     baseLayer: base
     layerStates:
     - steel
@@ -70,18 +71,9 @@
           Quantity: 9
         - ReagentId: Carbon
           Quantity: 1
-
-- type: entity
-  parent: SheetSteel
-  id: SheetSteel10
-  name: steel
-  suffix: 10
-  components:
-  - type: Sprite
-    state: steel
-  - type: Stack
-    stackType: Steel
-    count: 10
+  - type: Construction
+    graph: SpecimanObjects
+    node: steel
 
 - type: entity
   parent: SheetSteel
@@ -108,6 +100,7 @@
       Brass: 100
   - type: Stack
     stackType: Brass
+    count: 10
     baseLayer: base
     layerStates:
     - brass
@@ -137,18 +130,6 @@
 
 - type: entity
   parent: SheetBrass
-  id: SheetBrass10
-  name: brass
-  suffix: 10
-  components:
-  - type: Sprite
-    state: brass
-  - type: Stack
-    stackType: Brass
-    count: 10
-
-- type: entity
-  parent: SheetBrass
   id: SheetBrass1
   name: brass
   suffix: Single
@@ -171,6 +152,7 @@
       Plasteel: 100
   - type: Stack
     stackType: Plasteel
+    count: 10
     baseLayer: base
     layerStates:
     - plasteel
@@ -197,18 +179,6 @@
         - ReagentId: Carbon
           Quantity: 1
         canReact: false
-
-- type: entity
-  parent: SheetPlasteel
-  id: SheetPlasteel10
-  name: plasteel
-  suffix: 10
-  components:
-  - type: Sprite
-    state: plasteel
-  - type: Stack
-    stackType: Plasteel
-    count: 10
 
 - type: entity
   parent: SheetPlasteel

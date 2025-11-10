@@ -32,7 +32,7 @@
 - type: stack
   abstract: true
   id: BaseSheetStack
-  maxCount: 30
+  maxCount: 10
 
 # Used by tiles
 - type: stack

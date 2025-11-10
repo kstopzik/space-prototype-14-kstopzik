@@ -8,14 +8,14 @@
 # Stacks which come from plants
 
 - type: stack
-  parent: BaseMediumStack
+  parent: BaseSheetStack
   id: WoodPlank
   name: stack-wood-plank
   icon: { sprite: /Textures/Objects/Materials/materials.rsi, state: wood }
   spawn: MaterialWoodPlank1
 
 - type: stack
-  parent: BaseMediumStack
+  parent: BaseSheetStack
   id: Cardboard
   name: stack-cardboard
   icon: { sprite: /Textures/Objects/Materials/materials.rsi, state: cardboard }
@@ -31,7 +31,7 @@
   spawn: MaterialWebSilk1
 
 - type: stack
-  parent: BaseMediumStack
+  parent: BaseSheetStack
   id: Bones
   name: stack-bones
   icon: { sprite: /Textures/Objects/Materials/materials.rsi, state: bones }

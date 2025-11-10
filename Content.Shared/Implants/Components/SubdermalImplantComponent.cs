@@ -85,3 +85,10 @@ public sealed partial class ActivateImplantEvent : InstantActionEvent;
 /// TODO: Delete this and just add a ToggleUIOnTriggerComponent
 /// </remarks>
 public sealed partial class OpenUplinkImplantEvent : InstantActionEvent;
+
+
+
+
+
+/// Used for opening medical implant.
+public sealed partial class OpenMedicalImplantEvent : InstantActionEvent;

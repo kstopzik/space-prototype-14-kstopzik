@@ -34,6 +34,7 @@
       Steel: 50 #Half of a regular steel sheet to reflect the crafting recipe
   - type: Stack
     stackType: MetalRod
+    count: 10
     baseLayer: base
     layerStates:
     - rods
@@ -74,17 +75,6 @@
   - type: GuideHelp
     guides:
     - ExpandingRepairingStation
-
-- type: entity
-  parent: PartRodMetal
-  id: PartRodMetal10
-  name: metal rod
-  suffix: 10
-  components:
-  - type: Sprite
-    state: rods
-  - type: Stack
-    count: 10
 
 - type: entity
   parent: PartRodMetal

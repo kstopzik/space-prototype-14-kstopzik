@@ -35,6 +35,7 @@
       Cardboard: 100
   - type: Stack
     stackType: Cardboard
+    count: 10
     baseLayer: base
     layerStates:
     - cardboard
@@ -64,15 +65,6 @@
     doAfter: 0.5
     removeOnInteract: true
 
-- type: entity
-  parent: MaterialCardboard
-  id: MaterialCardboard10
-  suffix: 10
-  components:
-  - type: Sprite
-    state: cardboard
-  - type: Stack
-    count: 10
 
 - type: entity
   parent: MaterialCardboard
@@ -110,6 +102,7 @@
         variation: 0.125
   - type: Stack
     stackType: Cloth
+    count: 10
     baseLayer: base
     layerStates:
     - cloth
@@ -156,16 +149,6 @@
 
 - type: entity
   parent: MaterialCloth
-  id: MaterialCloth10
-  suffix: 10
-  components:
-  - type: Sprite
-    state: cloth
-  - type: Stack
-    count: 10
-
-- type: entity
-  parent: MaterialCloth
   id: MaterialCloth1
   suffix: Single
   components:
@@ -182,6 +165,7 @@
   components:
   - type: Stack
     stackType: Durathread
+    count: 10
     baseLayer: base
     layerStates:
     - durathread
@@ -239,6 +223,7 @@
       Wood: 100
   - type: Stack
     stackType: WoodPlank
+    count: 10
     baseLayer: base
     layerStates:
     - wood
@@ -265,14 +250,6 @@
         reagents:
         - ReagentId: Cellulose
           Quantity: 10
-
-- type: entity
-  parent: MaterialWoodPlank
-  id: MaterialWoodPlank10
-  suffix: 10
-  components:
-  - type: Stack
-    count: 10
 
 - type: entity
   parent: MaterialWoodPlank

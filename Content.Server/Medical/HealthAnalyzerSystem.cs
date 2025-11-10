@@ -18,6 +18,7 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Timing;
+using Content.Shared.Implants.Components;
 
 namespace Content.Server.Medical;
 
@@ -40,6 +41,7 @@ public sealed class HealthAnalyzerSystem : EntitySystem
         SubscribeLocalEvent<HealthAnalyzerComponent, EntGotInsertedIntoContainerMessage>(OnInsertedIntoContainer);
         SubscribeLocalEvent<HealthAnalyzerComponent, ItemToggledEvent>(OnToggled);
         SubscribeLocalEvent<HealthAnalyzerComponent, DroppedEvent>(OnDropped);
+        SubscribeLocalEvent<HealthAnalyzerComponent, OpenMedicalImplantEvent>(OnImplantActivate);
     }
 
     public override void Update(float frameTime)
@@ -51,7 +53,7 @@ public sealed class HealthAnalyzerSystem : EntitySystem
             if (component.NextUpdate > _timing.CurTime)
                 continue;
 
-            if (component.ScannedEntity is not {} patient)
+            if (component.ScannedEntity is not { } patient)
                 continue;
 
             if (Deleted(patient))
@@ -219,5 +221,24 @@ public sealed class HealthAnalyzerSystem : EntitySystem
             bleeding,
             unrevivable
         ));
+    }
+
+
+    private void OnImplantActivate(Entity<HealthAnalyzerComponent> ent, ref OpenMedicalImplantEvent args)
+    {
+        if (args.Handled)
+            return;
+
+        var uiOpen = _uiSystem.IsUiOpen(ent.Owner, HealthAnalyzerUiKey.Key, args.Performer);
+
+        if (uiOpen)
+            _uiSystem.CloseUi(ent.Owner, HealthAnalyzerUiKey.Key, args.Performer);
+        else
+        {
+            OpenUserInterface(args.Performer, ent.Owner);
+            BeginAnalyzingEntity(ent, args.Performer);
+        }
+
+        args.Handled = true;
     }
 }

@@ -8,7 +8,7 @@
     sprite: Objects/Materials/Sheets/other.rsi
   - type: Item
     sprite: Objects/Materials/Sheets/other.rsi
-    size: Normal
+    size: Small
   - type: Tag
     tags:
     - Sheet
@@ -36,6 +36,7 @@
   components:
   - type: Stack
     stackType: Paper
+    count: 10
     baseLayer: base
     layerStates:
     - paper
@@ -86,6 +87,7 @@
       Plasma: 100
   - type: Stack
     stackType: Plasma
+    count: 10
     baseLayer: base
     layerStates:
     - plasma
@@ -108,16 +110,10 @@
         - ReagentId: Plasma
           Quantity: 10
         canReact: false
-
-- type: entity
-  parent: SheetPlasma
-  id: SheetPlasma10
-  suffix: 10
-  components:
-  - type: Sprite
-    state: plasma
-  - type: Stack
-    count: 10
+  - type: Tag # Redundant
+    tags:
+    - Sheet
+    - ConstructionMaterial
 
 - type: entity
   parent: SheetPlasma
@@ -147,6 +143,7 @@
       Plastic: 100
   - type: Stack
     stackType: Plastic
+    count: 10
     baseLayer: base
     layerStates:
     - plastic
@@ -171,17 +168,6 @@
         - ReagentId: Phosphorus
           Quantity: 5
         canReact: false
-
-- type: entity
-  parent: SheetPlastic
-  id: SheetPlastic10
-  name: plastic
-  suffix: 10
-  components:
-  - type: Sprite
-    state: plastic
-  - type: Stack
-    count: 10
 
 - type: entity
   parent: SheetPlastic

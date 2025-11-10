@@ -6,9 +6,11 @@ using Content.Shared.Movement.Systems;
 using Content.Shared.Nutrition.Components;
 using Content.Shared.Rejuvenate;
 using Content.Shared.StatusIcon;
+using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
+using Robust.Shared.Utility;
 
 namespace Content.Shared.Nutrition.EntitySystems;
 
@@ -27,6 +29,8 @@ public sealed class HungerSystem : EntitySystem
     private static readonly ProtoId<SatiationIconPrototype> HungerIconPeckishId = "HungerIconPeckish";
     private static readonly ProtoId<SatiationIconPrototype> HungerIconStarvingId = "HungerIconStarving";
 
+    private const float MaxThreshold = 50.0f;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -40,8 +44,8 @@ public sealed class HungerSystem : EntitySystem
     private void OnMapInit(EntityUid uid, HungerComponent component, MapInitEvent args)
     {
         var amount = _random.Next(
-            (int) component.Thresholds[HungerThreshold.Peckish] + 10,
-            (int) component.Thresholds[HungerThreshold.Okay]);
+            (int)component.Thresholds[HungerThreshold.Peckish] + 10,
+            (int)component.Thresholds[HungerThreshold.Okay]);
         SetHunger(uid, amount, component);
     }
 
@@ -52,13 +56,14 @@ public sealed class HungerSystem : EntitySystem
 
     private void OnRefreshMovespeed(EntityUid uid, HungerComponent component, RefreshMovementSpeedModifiersEvent args)
     {
-        if (component.CurrentThreshold > HungerThreshold.Starving)
-            return;
-
         if (_jetpack.IsUserFlying(uid))
             return;
 
-        args.ModifySpeed(component.StarvingSlowdownModifier, component.StarvingSlowdownModifier);
+        if (component.CurrentThreshold <= HungerThreshold.Starving)
+            args.ModifySpeed(component.StarvingSlowdownModifier, component.StarvingSlowdownModifier);
+        else if (component.CurrentThreshold <= HungerThreshold.Dead)
+            args.ModifySpeed(component.DeadSlowdownModifier, component.DeadSlowdownModifier);
+
     }
 
     private void OnRejuvenate(EntityUid uid, HungerComponent component, RejuvenateEvent args)
@@ -141,7 +146,7 @@ public sealed class HungerSystem : EntitySystem
         if (component.CurrentThreshold == component.LastThreshold && !force)
             return;
 
-        if (GetMovementThreshold(component.CurrentThreshold) != GetMovementThreshold(component.LastThreshold))
+        if (component.CurrentThreshold != component.LastThreshold)
         {
             _movementSpeedModifier.RefreshMovementSpeedModifiers(uid);
         }
@@ -171,10 +176,12 @@ public sealed class HungerSystem : EntitySystem
         if (!Resolve(uid, ref component))
             return;
 
-        if (component.CurrentThreshold <= HungerThreshold.Starving &&
+        if (component.CurrentThreshold <= HungerThreshold.Dead &&
             component.StarvationDamage is { } damage &&
             !_mobState.IsDead(uid))
         {
+            var damageDelta = Math.Clamp(Math.Abs(GetHunger(component)) / (MaxThreshold / 4), 0.2f, 2.0f);
+            damage *= damageDelta;
             _damageable.TryChangeDamage(uid, damage, true, false);
         }
     }
@@ -254,7 +261,7 @@ public sealed class HungerSystem : EntitySystem
     private static float ClampHungerWithinThresholds(HungerComponent component, float hungerValue)
     {
         return Math.Clamp(hungerValue,
-            component.Thresholds[HungerThreshold.Dead],
+            component.Thresholds[HungerThreshold.Dead] - MaxThreshold,
             component.Thresholds[HungerThreshold.Overfed]);
     }
 
