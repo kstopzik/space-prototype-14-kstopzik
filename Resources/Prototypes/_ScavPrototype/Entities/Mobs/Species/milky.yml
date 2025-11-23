@@ -1,19 +1,19 @@
 - type: entity
   save: false
   parent: BaseMobSpeciesOrganic
-  id: MobSpeciman
-  name: Урист МакОбразец
+  id: MobMilky
+  name: Урист МакМолоко
   components:
   - type: Icon
-    sprite: _ScavPrototype/Mobs/Species/Speciman/parts.rsi
+    sprite: _ScavPrototype/Mobs/Species/Milky/parts.rsi
     state: full
   - type: HumanoidAppearance
-    species: Speciman
+    species: Milky
     hideLayersOnEquip:
     - HeadTop
     - HeadSide
   - type: Body
-    prototype: Speciman
+    prototype: Milky
   - type: Sprite
     drawdepth: Mobs
   - type: Vocal
@@ -35,9 +35,14 @@
     animation: WeaponArcClaw
     damage:
       types:
-        Piercing: 3
-        Slash: 5
-        Structural: 10
+        Piercing: 2
+        Slash: 4
+        Structural: 6
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      90: Critical
+      180: Dead
   - type: Bloodstream
     bloodReagent: YellowBlood
   - type: Damageable
@@ -59,30 +64,31 @@
       273: 0.85
       260: 0.75
       240: 0.65
+  - type: PassiveDamage
+    allowedStates:
+    - Alive
+    damageCap: 50
+    damage:
+      types:
+        Heat: -0.04
+        Cold: -0.05
+        Shock: -0.02
+      groups:
+        Brute: -0.07
+        Toxin: -0.04
   - type: Hunger
-    baseDecayRate: 0.042
+    baseDecayRate: 0.033
     starvationDamage:
       types:
         Bloodloss: 0.75
         Cold: 0.05
-  - type: PassiveDamage
-    allowedStates:
-    - Alive
-    damageCap: 60
-    damage:
-      types:
-        Heat: -0.05
-        Cold: -0.06
-        Shock: -0.03
-      groups:
-        Brute: -0.08
-        Toxin: -0.05
   - type: Thirst
-    baseDecayRate: 0.2
+    baseDecayRate: 0.17
   - type: ScaleVisuals
-    scale: 0.9, 0.9
+    scale: 0.8, 0.8
   - type: Tag
     tags:
+    - CanPilot
     - FootstepSound
     - DoorBumpOpener
     - SpecimanCraft
@@ -90,14 +96,14 @@
   - type: PointLight
     radius: 1.4
     energy: 0.4
-    color: "#ff8227"
+    color: "#a1d5e6"
   - type: Fixtures
     fixtures:
       fix1:
         shape:
           !type:PhysShapeCircle
-          radius: 0.315
-        density: 120
+          radius: 0.48
+        density: 105
         restitution: 0.0
         mask:
         - MobMask
@@ -105,7 +111,7 @@
         - MobLayer
   - type: Sharp
   - type: Inventory
-    speciesId: Speciman
+    speciesId: Milky
     templateId: speciman
     displacements:
       jumpsuit:
@@ -136,8 +142,8 @@
 
 - type: entity
   parent: BaseSpeciesDummy
-  id: MobSpecimanDummy
+  id: MobMilkyDummy
   categories: [ HideSpawnMenu ]
   components:
   - type: HumanoidAppearance
-    species: Speciman
+    species: Milky
