@@ -1,7 +1,17 @@
 - type: entity
   parent: SurveillanceCameraBase
+  id: ReinforcedSurveillanceCameraBase
+  name: укрепленная камера
+  abstract: true
+  components:
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: StructuralMetallic
+
+- type: entity
+  parent: ReinforcedSurveillanceCameraBase
   id: SurveillanceCameraContaiment
-  name: камера
+  name: укрепленная камера
   suffix: Содержание
   components:
   - type: DeviceNetwork
@@ -10,9 +20,6 @@
     transmitFrequencyId: SurveillanceCamera
   - type: SurveillanceCamera
     networkSet: true
-  - type: Damageable
-    damageContainer: StructuralInorganic
-    damageModifierSet: StructuralMetallic
   - type: SurveillanceCameraMicrophone
     blacklist:
       components:
@@ -23,9 +30,9 @@
     range: 10
 
 - type: entity
-  parent: SurveillanceCameraBase
+  parent: ReinforcedSurveillanceCameraBase
   id: SurveillanceCameraPhysicalTesting
-  name: камера
+  name: укрепленная камера
   suffix: Физ. Тестирование
   components:
   - type: DeviceNetwork
@@ -36,9 +43,9 @@
     networkSet: true
 
 - type: entity
-  parent: SurveillanceCameraBase
+  parent: ReinforcedSurveillanceCameraBase
   id: SurveillanceCameraPsyhoTesting
-  name: камера
+  name: укрепленная камера
   suffix: Псих. Тестирование
   components:
   - type: DeviceNetwork
@@ -49,9 +56,9 @@
     networkSet: true
 
 - type: entity
-  parent: SurveillanceCameraBase
+  parent: ReinforcedSurveillanceCameraBase
   id: SurveillanceCameraIntermediate
-  name: камера
+  name: укрепленная камера
   suffix: Промежуточная зона
   components:
   - type: DeviceNetwork
