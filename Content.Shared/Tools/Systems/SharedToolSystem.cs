@@ -14,6 +14,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
+using System.Linq; //Space Prototype change
 
 namespace Content.Shared.Tools.Systems;
 
@@ -84,24 +85,26 @@ public abstract partial class SharedToolSystem : EntitySystem
 
         var message = new FormattedMessage();
 
-        // Create a list to store tool quality names
-        var toolQualities = new List<string>();
+        // Create a dict to store tool quality names
+        //Space Prototype changes start
+        var toolQualitiesLevels = new Dictionary<string, float>();
 
         // Loop through tool qualities and add localized names to the list
-        foreach (var toolQuality in ent.Comp.Qualities)
+        foreach (var toolQualityLevel in ent.Comp.QualitiesLevels)
         {
-            if (_protoMan.TryIndex<ToolQualityPrototype>(toolQuality ?? string.Empty, out var protoToolQuality))
+            if (_protoMan.TryIndex<ToolQualityPrototype>(toolQualityLevel.Key, out var protoToolQuality))
             {
-                toolQualities.Add(Loc.GetString(protoToolQuality.Name));
+                toolQualitiesLevels.Add(Loc.GetString(protoToolQuality.Name), toolQualityLevel.Value);
             }
         }
 
         // Combine the qualities into a single string and localize the final message
-        var qualitiesString = string.Join(", ", toolQualities);
+        var qualitiesString = string.Join(", ", toolQualitiesLevels.Select(kvp => $"{kvp.Key} {kvp.Value}"));
 
         // Add the localized message to the FormattedMessage object
         message.AddMarkupPermissive(Loc.GetString("tool-component-qualities", ("qualities", qualitiesString)));
         args.PushMessage(message);
+        //Space Prototype changes end
     }
 
     public void PlayToolSound(EntityUid uid, ToolComponent tool, EntityUid? user)
