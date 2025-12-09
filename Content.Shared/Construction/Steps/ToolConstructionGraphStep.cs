@@ -11,6 +11,8 @@ namespace Content.Shared.Construction.Steps
         [DataField("tool", required:true, customTypeSerializer:typeof(PrototypeIdSerializer<ToolQualityPrototype>))]
         public string Tool { get; private set; } = string.Empty;
 
+        [DataField("qualityLevel")] public float QualityLevel { get; private set; } = 1; //Space Prototype change
+
         [DataField("fuel")] public float Fuel { get; private set; } = 10;
 
         [DataField("examine")] public string ExamineOverride { get; private set; } = string.Empty;

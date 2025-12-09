@@ -2,6 +2,7 @@ using Content.Shared.Tools.Systems;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Utility;
+using Robust.Shared.Prototypes;
 
 namespace Content.Shared.Tools.Components;
 
@@ -20,6 +21,11 @@ public sealed partial class ToolComponent : Component
 
     [DataField]
     public SoundSpecifier? UseSound;
+
+    ///Space Prototype changes start
+    [DataField]
+    public Dictionary<ProtoId<ToolQualityPrototype>, float> QualitiesLevels = new();
+    ///Space Prototype changes end
 }
 
 /// <summary>

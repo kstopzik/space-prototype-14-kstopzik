@@ -358,7 +358,7 @@ namespace Content.Server.Construction
                     if (validation)
                     {
                         // Then we only really need to check whether the tool entity has that quality or not.
-                        return _toolSystem.HasQuality(interactUsing.Used, toolInsertStep.Tool)
+                        return _toolSystem.HasMinQualityLevel(interactUsing.Used, toolInsertStep.Tool, toolInsertStep.QualityLevel)
                             ? HandleResult.Validated
                             : HandleResult.False;
                     }
@@ -375,7 +375,8 @@ namespace Content.Server.Construction
                         new [] { toolInsertStep.Tool },
                         new ConstructionInteractDoAfterEvent(EntityManager, interactUsing),
                         out var doAfter,
-                        toolInsertStep.Fuel);
+                        toolInsertStep.Fuel,
+                        qualitiesLevelsNeeded : new Dictionary<string, float> { { toolInsertStep.Tool, toolInsertStep.QualityLevel } });
 
                     return result && doAfter != null ? HandleResult.DoAfter : HandleResult.False;
                 }
