@@ -11,7 +11,7 @@ namespace Content.Shared.Tools.Components;
 public sealed partial class ToolComponent : Component
 {
     [DataField]
-    public PrototypeFlags<ToolQualityPrototype> Qualities  = [];
+    public Dictionary<ProtoId<ToolQualityPrototype>, float> Qualities = new(); //Space Prototype change
 
     /// <summary>
     ///     For tool interactions that have a delay before action this will modify the rate, time to wait is divided by this value
@@ -21,11 +21,6 @@ public sealed partial class ToolComponent : Component
 
     [DataField]
     public SoundSpecifier? UseSound;
-
-    ///Space Prototype changes start
-    [DataField]
-    public Dictionary<ProtoId<ToolQualityPrototype>, float> QualitiesLevels = new();
-    ///Space Prototype changes end
 }
 
 /// <summary>
