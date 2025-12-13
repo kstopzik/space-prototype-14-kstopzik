@@ -8,15 +8,15 @@
     },
     "states": [
         {
-            "name": "ears_speciman_primary",
+            "name": "ears_specimanalbino_primary",
             "directions": 4
         },
         {
-            "name": "ears_speciman_secondary",
+            "name": "ears_specimanalbino_secondary",
             "directions": 4
         },
         {
-            "name": "tail_speciman_base",
+            "name": "tail_specimanalbino_base",
             "directions": 4
         }
     ]
