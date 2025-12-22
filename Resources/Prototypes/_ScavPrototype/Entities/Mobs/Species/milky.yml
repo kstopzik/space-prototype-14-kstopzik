@@ -49,10 +49,10 @@
       90: Critical
       180: Dead
   - type: Bloodstream
-    bloodReagents:
+    bloodReferenceSolution:
       reagents:
       - ReagentId: YellowBlood
-        Quantity: 1
+        Quantity: 250
   - type: Damageable
     damageContainer: Biological
     damageModifierSet: Speciman
@@ -96,7 +96,7 @@
   - type: Thirst
     baseDecayRate: 0.17
   - type: ScaleVisuals
-    scale: 0.8, 0.8
+    scale: 0.75, 0.75
   - type: Tag
     tags:
     - CanPilot

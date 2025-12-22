@@ -44,10 +44,10 @@
         Slash: 4
         Structural: 8
   - type: Bloodstream
-    bloodReagents:
+    bloodReferenceSolution:
       reagents:
       - ReagentId: YellowBlood
-        Quantity: 1
+        Quantity: 300
   - type: Damageable
     damageContainer: Biological
     damageModifierSet: Speciman
