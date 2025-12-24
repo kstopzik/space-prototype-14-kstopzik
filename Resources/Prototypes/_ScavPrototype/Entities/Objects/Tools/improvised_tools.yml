@@ -23,10 +23,8 @@
         acts: [ "Destruction" ]
 
 - type: entity
-  name: самодельная отвертка
   parent: [Screwdriver, BaseImprovisedTool]
   name: самодельная отвёртка
-  parent: Screwdriver
   id: ImprovisedScrewdriver
   description: Отвертка сделаная из подручных материалов. Хуже, но лучше чем ничего.
   components:
@@ -67,6 +65,7 @@
   - type: Tool
     qualities:
       Cutting: 0.5
+      Slicing: 0.2
     useSound:
       path: /Audio/Items/wirecutter.ogg
     speedModifier: 0.4
@@ -97,6 +96,7 @@
   - type: Tool
     qualities:
       Prying: 0.5
+      Crushing: 0.4
     speedModifier: 0.4
     useSound:
       path: /Audio/Items/crowbar.ogg

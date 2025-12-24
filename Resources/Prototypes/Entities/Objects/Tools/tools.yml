@@ -78,6 +78,7 @@
   - type: Tool
     qualities:
       Cutting: 1
+      Slicing: 0.4
     useSound:
       path: /Audio/Items/wirecutter.ogg
   - type: RandomSprite
@@ -169,6 +170,7 @@
   - type: Tool
     qualities:
       Anchoring: 1
+      Crushing: 0.5
     useSound:
       path: /Audio/Items/ratchet.ogg
   - type: PhysicalComposition
@@ -304,14 +306,14 @@
     size: Small
   - type: Tool
     qualities:
-      Screwing: 1.5
+      Screwing: 2
     speedModifier: 1.5
     useSound: /Audio/Items/drill_use.ogg
   - type: MultipleTool
     statusShowBehavior: true
     entries:
       - behavior:
-          Screwing: 1.5
+          Screwing: 2
         sprite:
           sprite: Objects/Tools/drill.rsi
           state: drill_screw
@@ -320,7 +322,7 @@
         changeSound:
           path: /Audio/Items/change_drill.ogg
       - behavior:
-          Anchoring: 1.5
+          Anchoring: 2
         sprite:
           sprite: Objects/Tools/drill.rsi
           state: drill_bolt
@@ -572,6 +574,7 @@
   - type: Tool
     qualities:
       Rolling: 1
+      Crushing: 0.4
   - type: PhysicalComposition
     materialComposition:
       Wood: 100

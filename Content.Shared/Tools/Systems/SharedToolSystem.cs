@@ -18,6 +18,8 @@ using Robust.Shared.Utility;
 using System.Linq;
 using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Systems;
+using Content.Shared.PowerCell;
+using Content.Shared.Power.Components;
 
 namespace Content.Shared.Tools.Systems;
 
@@ -39,7 +41,10 @@ public abstract partial class SharedToolSystem : EntitySystem
     [Dependency] private   readonly TileSystem _tiles = default!;
     [Dependency] private   readonly TurfSystem _turfs = default!;
 
-    [Dependency] private readonly DamageableSystem _damageableSystem = default!; //Space Prototype change
+    //Space Prototype changes start
+    [Dependency] private readonly DamageableSystem _damageableSystem = default!;
+    [Dependency] private readonly PowerCellSystem _powerCell = default!;
+    //Space Prototype changes end
 
     public const string CutQuality = "Cutting";
     public const string PulseQuality = "Pulsing";
@@ -72,7 +77,7 @@ public abstract partial class SharedToolSystem : EntitySystem
             PlayToolSound(uid, tool, args.User);
             //Space Prototype changes start
             if (tool.EnergyTool)
-                DoAfterEnergyTool(uid, tool);
+                _powerCell.TryUseCharge(uid, tool.ChargeUse);
             else if (TryComp<DamageableComponent>(uid, out var damageable) && tool.DamagePerUse != null)
                 _damageableSystem.ChangeDamage((uid, damageable), tool.DamagePerUse, false, false);
             //Space Prototype changes end
@@ -304,17 +309,6 @@ public abstract partial class SharedToolSystem : EntitySystem
     {
         //На серверной части
     }
-
-    public virtual bool CanStartEnergyTool(EntityUid uid, ToolComponent tool, EntityUid user)
-    {
-        //На серверной части
-        return false;
-    }
-
-    public virtual void DoAfterEnergyTool(EntityUid uid, ToolComponent tool)
-    {
-        //На серверной части
-    }
     //Space Prototype changes end
 
     private bool CanStartToolUse(EntityUid tool, EntityUid user, EntityUid? target, float fuel, [ForbidLiteral] Dictionary<string, float> qualitiesNeeded, ToolComponent? toolComponent = null)
@@ -329,7 +323,7 @@ public abstract partial class SharedToolSystem : EntitySystem
                 return false;
         }
 
-        if (toolComponent.EnergyTool && !CanStartEnergyTool(tool, toolComponent, user))
+        if (toolComponent.EnergyTool && _powerCell.HasCharge(tool, toolComponent.ChargeUse, user: user))
             return false;
         //Space Prototype changes end
 
